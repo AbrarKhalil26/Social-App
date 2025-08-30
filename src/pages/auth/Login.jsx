@@ -102,7 +102,7 @@ export default function Login() {
               isLoading={isSubmitting}
               disabled={!isValid}
             >
-              Register
+              Login
             </AppButton>
             {apiError && (
               <Alert color="failure" icon={HiInformationCircle}>

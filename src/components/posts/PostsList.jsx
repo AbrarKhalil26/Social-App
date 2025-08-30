@@ -1,25 +1,18 @@
 import PostItem from "./PostItem";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Loader from "../shared/Loader";
+import useFetch from "../../hooks/useFetch";
 
-export default function PostsList({ isProfile = true }) {
-  const { token, userData } = useContext(AuthContext);
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
+export default function PostsList({ setEditPost, isProfile = true }) {
+  const { userData } = useContext(AuthContext);
+  const queryKey = isProfile ? ["all-posts"] : ["user-posts"];
+  const endPoint = `${
+    isProfile ? `/users/${userData?._id}` : ``
+  }/posts?limit=50${isProfile ? `` : `&sort=-createdAt`}`;
+  const { data, isLoading, isError, error } = useFetch(queryKey, endPoint, {
+    enabled: !!userData,
   });
-
-  async function getPosts() {
-    return await axios.get(
-      `${import.meta.env.VITE_BASE_URL}${
-        isProfile ? `/users/${userData?._id}`:``
-      }/posts?limit=50${isProfile ? `` : `&sort=-createdAt`}`,
-      { headers: { token } }
-    );
-  }
 
   return (
     <div className="py-12">
@@ -27,7 +20,7 @@ export default function PostsList({ isProfile = true }) {
         {isError && <p>Error: {error.message}</p>}
         {isLoading && <Loader />}
         {data &&
-          data.data.posts.map((post) => <PostItem key={post.id} post={post} />)}
+          data.posts.map((post) => <PostItem key={post.id} post={post} setEditPost={setEditPost}/>)}
       </div>
     </div>
   );
