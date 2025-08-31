@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CreatePost from "../../components/posts/CreatePost";
 import PostsList from "../../components/posts/PostsList";
-import CardProfile from "../../components/profile/cardProfile";
+import CardProfile from "../../components/profile/CardProfile";
 import { Helmet } from "react-helmet";
 
 export default function Profile() {
