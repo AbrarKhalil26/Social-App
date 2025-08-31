@@ -1,4 +1,3 @@
-import { useState } from "react";
 import CreatePost from "../../components/posts/CreatePost";
 import PostsList from "../../components/posts/PostsList";
 import CardProfile from "../../components/profile/CardProfile";
