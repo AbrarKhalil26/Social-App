@@ -5,8 +5,6 @@ import CardProfile from "../../components/profile/cardProfile";
 import { Helmet } from "react-helmet";
 
 export default function Profile() {
-  const [editPost, setEditPost] = useState(null);
-
   return (
     <>
       <Helmet>
@@ -20,7 +18,7 @@ export default function Profile() {
             </div>
             <div className="col-span-2">
               <CreatePost />
-              <PostsList setEditPost={setEditPost} />
+              <PostsList />
             </div>
           </div>
         </div>
