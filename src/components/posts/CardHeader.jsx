@@ -14,9 +14,12 @@ export default function CardHeader({
   setEditComment,
 }) {
   const { userData } = useContext(AuthContext);
-  const { _id: postId, body, image, user, createdAt } = post || {};
-  const { photo, name, _id: userId } = 
-    isComment ? comment?.commentCreator || {} : user || {};
+  const { _id: postId, user, createdAt } = post || {};
+  const {
+    photo,
+    name,
+    _id: userId,
+  } = isComment ? comment?.commentCreator || {} : user || {};
   const commentId = comment?._id;
   const commentCreatedAt = comment?.createdAt;
   const queryClient = useQueryClient();
@@ -47,30 +50,6 @@ export default function CardHeader({
       );
     },
   });
-  // const { mutate: handleEditPost } = useMutation({
-  //   mutationFn: editPost,
-  //   onSuccess: () => {
-  //     console.log('edit post');
-
-  //     // setEditPost(postId);
-
-  //   },
-  //   onError: (err) => {
-  //     toast.error(err.response.data.error, {
-  //       theme: "dark",
-  //       autoClose: 2000,
-  //     });
-  //   },
-  // });
-
-  // async function editPost() {
-  //   return await axios.put(
-  //     `${import.meta.env.VITE_BASE_URL}/posts/${postId}`, {body, image},
-  //     {
-  //       headers: { token: localStorage.getItem("token") },
-  //     }
-  //   );
-  // }
 
   async function deletePost() {
     const endPoint = isComment ? "comments" : "posts";
@@ -125,7 +104,9 @@ export default function CardHeader({
             }
           >
             <DropdownItem
-              onClick={() => setEditComment(true)}
+              onClick={() => {
+                isComment? setEditComment(true): setEditPost(true);
+              }}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
             >
               Edit

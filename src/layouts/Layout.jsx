@@ -4,10 +4,12 @@ import { Outlet } from "react-router-dom";
 import AppFooter from "./Footer";
 import { Toast, ToastToggle } from "flowbite-react";
 import { HiCheck, HiX } from "react-icons/hi";
+import GoTopBtn from "../components/shared/GoTopBtn";
 
 export default function Layout() {
   return (
     <main className="dark:bg-gray-900 dark:text-gray-100">
+      <GoTopBtn/>
       <AppNavbar />
       <div className="min-h-screen">
         <Toast className="fixed top-19 right-3 z-50 shadow-lg shadow-gray-900">

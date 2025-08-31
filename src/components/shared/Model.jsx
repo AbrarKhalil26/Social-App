@@ -1,7 +1,7 @@
 import { Button, Modal, ModalBody, ModalHeader } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-export default function Model({children, openModal, setOpenModal}) {
+export default function Model({ children, openModal, setOpenModal }) {
   return (
     <>
       <Modal
@@ -10,24 +10,8 @@ export default function Model({children, openModal, setOpenModal}) {
         onClose={() => setOpenModal(false)}
         popup
       >
-        <ModalHeader/>
-        <ModalBody>
-            {children}
-          {/* <div className="text-center">
-            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this product?
-            </h3>
-            <div className="flex justify-center gap-4">
-              <Button color="red" onClick={() => setOpenModal(false)}>
-                Yes, I'm sure
-              </Button>
-              <Button color="alternative" onClick={() => setOpenModal(false)}>
-                No, cancel
-              </Button>
-            </div>
-          </div> */}
-        </ModalBody>
+        <ModalHeader />
+        <ModalBody>{children}</ModalBody>
       </Modal>
     </>
   );

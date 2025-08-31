@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Loader from "../shared/Loader";
 import useFetch from "../../hooks/useFetch";
 
-export default function PostsList({ setEditPost, isProfile = true }) {
+export default function PostsList({ isProfile = true }) {
   const { userData } = useContext(AuthContext);
   const queryKey = isProfile ? ["all-posts"] : ["user-posts"];
   const endPoint = `${
@@ -21,7 +21,7 @@ export default function PostsList({ setEditPost, isProfile = true }) {
         {isError && <p>Error: {error.message}</p>}
         {isLoading && <Loader />}
         {data &&
-          data.posts.map((post) => <PostItem key={post.id} post={post} setEditPost={setEditPost}/>)}
+          data.posts.map((post) => <PostItem key={post.id} post={post}/>)}
       </div>
     </div>
   );
