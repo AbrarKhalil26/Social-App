@@ -2,19 +2,23 @@ import { Card } from "flowbite-react";
 import { AiFillLike } from "react-icons/ai";
 import { FaComment } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import PostHeader from "./PostHeader";
-import CreateComment from "./CreateComment";
+import CardHeader from "./CardHeader";
+import CreateComment from "../comment/CreateComment";
+import CommentItem from "../comment/CommentItem";
 
 export default function PostItem({
   post,
   setEditPost,
   showAllComments = false,
 }) {
-  const { _id, image, comments } = post;
+  const { _id, body, image, comments } = post;
 
   return (
     <Card>
-      <PostHeader post={post} setEditPost={setEditPost} />
+      <CardHeader post={post} setEditPost={setEditPost} />
+      <p className={`font-normal text-gray-700 dark:text-gray-200 truncate `}>
+        {body}
+      </p>
       {image && (
         <img src={image} alt="post img" className="h-96 object-contain" />
       )}
@@ -33,10 +37,10 @@ export default function PostItem({
 
       {comments && comments.length > 0 && showAllComments
         ? comments.map((comment) => (
-            <PostHeader key={comment._id} comment={comment} isComment />
+            <CommentItem key={comment._id} comment={comment} />
           ))
         : comments[0]?.commentCreator && (
-            <PostHeader comment={comments[comments.length-1]} isComment />
+            <CommentItem comment={comments[comments.length - 1]} isComment />
           )}
       <CreateComment post={_id} />
     </Card>

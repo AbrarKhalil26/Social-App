@@ -1,43 +1,25 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 export const AuthContext = createContext(null);
 
 export default function CounterContextProvider({ children }) {
   const [token, setToken] = useState(null);
-  const [userData, setUserData] = useState(null);
+  // const [updateUserData, setUpdateUserData] = useState(false);
+  const { data: userData } = useFetch(["user-data"], "/users/profile-data", {
+    select: (data) => data.data.user,
+  });
 
   useEffect(() => {
-    if (localStorage.getItem("token")) setToken(localStorage.getItem("token"));
+    if (localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+    }
   }, []);
 
-  useEffect(() => {
-    if (token) getProfileData();
-    else setUserData(null);
-  }, [token]);
-
-  async function getProfileData() {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/users/profile-data`,
-        {
-          headers: {
-            token: localStorage.getItem("token"),
-          },
-        }
-      );
-      if (data.message === "success") {
-        setUserData(data.user);
-      } else if (data.error) {
-        throw new Error(data.error);
-      }
-    } catch (error) {
-      console.error("Error fetching profile data:", error);
-    }
-  }
-
   return (
-    <AuthContext.Provider value={{ token, setToken, userData }}>
+    <AuthContext.Provider
+      value={{ token, setToken, userData }}
+    >
       {children}
     </AuthContext.Provider>
   );

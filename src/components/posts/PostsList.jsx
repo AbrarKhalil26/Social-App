@@ -12,6 +12,7 @@ export default function PostsList({ setEditPost, isProfile = true }) {
   }/posts?limit=50${isProfile ? `` : `&sort=-createdAt`}`;
   const { data, isLoading, isError, error } = useFetch(queryKey, endPoint, {
     enabled: !!userData,
+    select: (data) => data.data,
   });
 
   return (

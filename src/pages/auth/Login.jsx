@@ -9,6 +9,7 @@ import { Alert, Label, TextInput } from "flowbite-react";
 import ValidationError from "../../components/shared/ValidationError";
 import { HiInformationCircle } from "react-icons/hi";
 import AppButton from "../../components/shared/AppButton";
+import { Helmet } from "react-helmet";
 
 const defaultValues = { email: "", password: "" };
 
@@ -26,7 +27,7 @@ const schema = z.object({
 export default function Login() {
   const navigate = useNavigate();
   const [apiError, setApiError] = useState(null);
-  const {setToken} = useContext(AuthContext);
+  const { setToken } = useContext(AuthContext);
 
   const {
     register,
@@ -56,62 +57,67 @@ export default function Login() {
     }
   }
   return (
-    <section className="py-12">
-      <div className="container">
-        <div className="max-w-lg mx-auto shadow-lg dark:bg-gray-800 px-10 py-8 rounded">
-          <h2 className="text-center mb-4 text-3xl">Login</h2>
-          <form
-            className="flex max-w-md flex-col gap-4"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            {/* ------------------Email----------------- */}
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="email">Your email</Label>
-              </div>
-              <TextInput
-                id="email"
-                type="text"
-                placeholder="name@flowbite.com"
-                {...register("email")}
-              />
-              <ValidationError
-                checked={errors.email}
-                error={errors?.email?.message}
-              />
-            </div>
-
-            {/* ------------------password----------------- */}
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="password">Your password</Label>
-              </div>
-              <TextInput
-                id="password"
-                type="password"
-                placeholder="********"
-                {...register("password")}
-              />
-              <ValidationError
-                checked={errors.password}
-                error={errors?.password?.message}
-              />
-            </div>
-            <AppButton
-              type="submit"
-              isLoading={isSubmitting}
-              disabled={!isValid}
+    <>
+      <Helmet>
+        <title>Kudo | Login</title>
+      </Helmet>
+      <section className="py-12">
+        <div className="container">
+          <div className="max-w-lg mx-auto shadow-lg dark:bg-gray-800 px-10 py-8 rounded">
+            <h2 className="text-center mb-4 text-3xl">Login</h2>
+            <form
+              className="flex max-w-md flex-col gap-4"
+              onSubmit={handleSubmit(onSubmit)}
             >
-              Login
-            </AppButton>
-            {apiError && (
-              <Alert color="failure" icon={HiInformationCircle}>
-                <span className="font-medium">{apiError}</span>
-              </Alert>
-            )}
-          </form>
+              {/* ------------------Email----------------- */}
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="email">Your email</Label>
+                </div>
+                <TextInput
+                  id="email"
+                  type="text"
+                  placeholder="name@flowbite.com"
+                  {...register("email")}
+                />
+                <ValidationError
+                  checked={errors.email}
+                  error={errors?.email?.message}
+                />
+              </div>
+
+              {/* ------------------password----------------- */}
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="password">Your password</Label>
+                </div>
+                <TextInput
+                  id="password"
+                  type="password"
+                  placeholder="********"
+                  {...register("password")}
+                />
+                <ValidationError
+                  checked={errors.password}
+                  error={errors?.password?.message}
+                />
+              </div>
+              <AppButton
+                type="submit"
+                isLoading={isSubmitting}
+                disabled={!isValid}
+              >
+                Login
+              </AppButton>
+              {apiError && (
+                <Alert color="failure" icon={HiInformationCircle}>
+                  <span className="font-medium">{apiError}</span>
+                </Alert>
+              )}
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

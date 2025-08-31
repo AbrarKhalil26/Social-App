@@ -2,12 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layouts/Layout";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import Posts from "../pages/posts/Posts";
 import NotFound from "../pages/notFound/NotFound";
 import ProtectedRoutes from "./ProtectedRoutes";
 import ProtectedAuthRoutes from "./ProtectedAuthRoutes";
 import PostDetails from "../pages/postDetails/PostDetails";
-import Profile from "../pages/auth/Profile";
+import { lazy, Suspense } from "react";
+
+const Posts = lazy(() => import("../pages/posts/Posts"));
+const Profile = lazy(() => import("../pages/auth/Profile"));
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +20,9 @@ export const router = createBrowserRouter([
         path: "/",
         element: (
           <ProtectedRoutes>
-            <Posts />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Posts />
+            </Suspense>
           </ProtectedRoutes>
         ),
       },
@@ -26,7 +30,9 @@ export const router = createBrowserRouter([
         path: "/posts",
         element: (
           <ProtectedRoutes>
-            <Posts />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Posts />
+            </Suspense>
           </ProtectedRoutes>
         ),
       },
@@ -34,7 +40,9 @@ export const router = createBrowserRouter([
         path: "/profile",
         element: (
           <ProtectedRoutes>
-            <Profile />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Profile />
+            </Suspense>
           </ProtectedRoutes>
         ),
       },

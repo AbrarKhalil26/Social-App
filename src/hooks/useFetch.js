@@ -5,7 +5,6 @@ export default function useFetch(queryKey, endPoint, options) {
   const { data, isLoading, isError, error } = useQuery({
     queryKey,
     queryFn: getPostDetails,
-    select: (data) => data.data,
     ...options,
   });
 

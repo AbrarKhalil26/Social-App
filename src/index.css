@@ -52,6 +52,9 @@
   [aria-live="polite"]{
     @apply w-full
   }
+  .profile-picture *{
+    @apply w-22 h-22;
+  }
 }
 
 @font-face {

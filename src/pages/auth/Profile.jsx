@@ -1,15 +1,30 @@
 import { useState } from "react";
 import CreatePost from "../../components/posts/CreatePost";
 import PostsList from "../../components/posts/PostsList";
+import CardProfile from "../../components/profile/cardProfile";
+import { Helmet } from "react-helmet";
 
 export default function Profile() {
-  const [editPost, setEditPost]  = useState(null);
-  console.log(editPost);
-  
+  const [editPost, setEditPost] = useState(null);
+
   return (
-    <div className="max-w-3xl mx-auto my-6">
-      <CreatePost />
-      <PostsList setEditPost={setEditPost}/>
-    </div>
+    <>
+      <Helmet>
+        <title>Kudo | Profile</title>
+      </Helmet>
+      <div className="mx-auto my-6 px-5">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10">
+            <div className="col-span-2 lg:col-span-1">
+              <CardProfile />
+            </div>
+            <div className="col-span-2">
+              <CreatePost />
+              <PostsList setEditPost={setEditPost} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
