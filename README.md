@@ -42,4 +42,4 @@ This application allows users to:
 
 
 ### Design
-![Social App Design](https://github.com/AbrarKhalil26/Social-App/blob/main/design/design.png)
+![Social App Design](https://github.com/AbrarKhalil26/Social-App/blob/main/public/design/design.png)
